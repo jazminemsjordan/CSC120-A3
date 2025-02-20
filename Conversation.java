@@ -15,6 +15,11 @@ class Conversation implements Chatbot {
   String[] responses = {"Uh-huh.", "Go on...", "Interesting!", "Please continue."};
   String[] transcript;
 
+  /**
+   * Picks a random index to generate a canned response
+   * @param None
+   * @return a random number between 0 and 3 
+   */
   private int randomize() {
     Random rand = new Random();
     int number = rand.nextInt(4);
@@ -28,7 +33,7 @@ class Conversation implements Chatbot {
     Scanner input = new Scanner(System.in);
     System.out.println("Hello! How many rounds of conversation would you like?");
     int rounds = input.nextInt();
-    int scriptLength = rounds + 1;
+    int scriptLength = rounds * 2 + 1;
     transcript = new String[scriptLength];
     input.nextLine();
     System.out.println("Great! Let's chat.");
@@ -54,7 +59,7 @@ class Conversation implements Chatbot {
    */
   public void printTranscript() {
     for (int i = 0; i < transcript.length; i ++) {
-      System.out.println(transcript[0]);
+      System.out.println(transcript[i]);
     }
     System.out.println("Goodbye!");
     
@@ -70,8 +75,8 @@ class Conversation implements Chatbot {
     String mirroredString = inputString;
     if (mirroredString.contains("I ")) {
       mirroredString = mirroredString.replace("I ", "you ");
-    } else if (mirroredString.contains("you ") || mirroredString.contains("You")){
-      mirroredString = mirroredString.replace("you ", "I ");
+    } else if (mirroredString.contains("you") || mirroredString.contains("You")){
+      mirroredString = mirroredString.replace("you", "I");
       mirroredString = mirroredString.replace("You", "I");
     };
     if (mirroredString.contains(" are") || mirroredString.contains("Are")) {
@@ -86,13 +91,6 @@ class Conversation implements Chatbot {
       mirroredString = mirroredString.replace("Your", "My");
     } else if (mirroredString.contains(" my ") || mirroredString.contains("My")) {
       mirroredString = mirroredString.replace(" my ", " your ");
-    }
-    if (mirroredString.contains("myself") || mirroredString.contains("Myself")) {
-      mirroredString.replace("myself", "yourself");
-      mirroredString.replace("Myself", "Yourself");
-    } else if (mirroredString.contains("yourself") || mirroredString.contains("Yourself")) {
-      mirroredString.replace("yourself", "myself");
-      mirroredString.replace("Yourself", "Myself");
     }
     if (mirroredString.equals(inputString)) {
       int random = randomize();
